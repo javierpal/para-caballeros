@@ -1,0 +1,10 @@
+#main-div{
+    position: relative;
+}
+
+#slider-text{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    font-size: 30px;
+}
