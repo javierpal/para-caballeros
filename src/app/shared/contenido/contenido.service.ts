@@ -21,9 +21,27 @@ export class ContenidoService {
       .map(data =>{
         let noticias = [];
         data.forEach((noticia) =>{
-          noticias.push(new Noticias(noticia.titulo, noticia.hora, noticia.autor, noticia.contenido, noticia.imagen));
+          noticias.push(new Noticias(noticia.id, noticia.titulo, noticia.hora, noticia.autor, noticia.resumen, noticia.contenido, noticia.imagen, noticia.imgmini, noticia.visitas));
         });
         return noticias;
       });
   }
+
+  loadTendencias(){
+    let noticiasLink = "http://192.168.1.10/getTendencia";
+    let headers = new Headers();
+    //headers.append("Access-Control-Allow-Headers", "X-CSRF-Token");
+
+    return this.http.get( noticiasLink, {
+      headers: headers
+    }).map( res => res.json())
+      .map(data =>{
+        let tendencias = [];
+        data.forEach((noticia) =>{
+          tendencias.push(new Noticias(noticia.id, noticia.titulo, noticia.hora, noticia.autor, noticia.resumen, noticia.contenido, noticia.imagen, noticia.imgmini, noticia.visitas));
+        });
+        return tendencias;
+      });
+  }
+
 }

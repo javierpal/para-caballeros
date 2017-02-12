@@ -13,15 +13,22 @@ export class MainComponent implements OnInit {
 
   constructor(private contenidoService: ContenidoService) { }
 
-  mainWrapper: any;
+  BigDiv: any;
+  smallContainer: any;
+  tendenciaContainer: any;
 
   noticias: Array<Noticias> = [];
+  tendencias: Array<Noticias> = [];
 
-  @ViewChild('main') mW: ElementRef;
+  @ViewChild('bigDiv') mW: ElementRef;
+  @ViewChild('smallContainer') sC: ElementRef;
+  @ViewChild('tendenciaContainer') tC: ElementRef;
 
 
   ngOnInit() {
-    this.mainWrapper = this.mW.nativeElement;
+    this.BigDiv = this.mW.nativeElement;
+    this.smallContainer = this.sC.nativeElement;
+    this.tendenciaContainer = this.tC.nativeElement;
 
     this.subscribe();
 
@@ -35,85 +42,114 @@ export class MainComponent implements OnInit {
         });
         this.showNoticias();
     });
-    
+
+    this.contenidoService.loadTendencias()
+      .subscribe(loadedTendencias => {
+        loadedTendencias.forEach((detalleTendencia)=>{
+          this.tendencias.push(detalleTendencia);
+        });
+        this.showTendencias();
+      });
+  }
+
+
+  showTendencias(){
+    for(let i = 0; i < this.tendencias.length; i++){
+      this.makeTendencias(this.tendencias[i]);
+    }
+  }
+
+  makeTendencias(tendencia){
+    let tinyNoticia = this.makeElement("div", "tinyNoticia", "");
+    let tinyImg = this.makeElement("div", "tiny-img", "");
+    let Img = document.createElement('img');
+    Img.src= tendencia.imgmini;
+    tinyImg.appendChild(Img);
+    tinyNoticia.appendChild(tinyImg);
+
+    let tinyText = this.makeElement("div", "tiny-text", "");
+    let tText1 = this.makeElement("p", "t-text", "");
+    let tText2 = this.makeElement("p", "t-text", "");
+    let tText3 = this.makeElement("p", "t-text", "");
+    tText1.innerHTML = tendencia.titulo;
+    tText2.innerHTML = tendencia.resumen;
+    tText3.innerHTML = "por "+tendencia.autor;
+    tinyText.appendChild(tText1);
+    tinyText.appendChild(tText2);
+    tinyText.appendChild(tText3);
+
+    tinyNoticia.appendChild(tinyText);
+    this.tendenciaContainer.appendChild(tinyNoticia);
   }
 
   showNoticias(){
-    let newDiv;
+    
     for(let i = 0; i < this.noticias.length; i++){
-      if(this.isFive(i) && i !== 0){
-        console.log("here1");
-        let newbig = document.createElement('div');
-        newbig.className = "row";
-        let BigNotice = document.createElement('div');
-        BigNotice.className = "col-md-12";
-        let SecDiv = document.createElement('div');
-        SecDiv.className = "col-md-8 noticia-big";
-        let BigImg = document.createElement('img');
-        BigImg.src = this.noticias[i].imagen;
-        let textDiv = document.createElement('div');
-        textDiv.className="col-md-6 noticia-text";
-        let title = document.createElement('p');
-        title.innerHTML=this.noticias[i].titulo;
-        let content = document.createElement('p');
-        content.innerHTML=this.noticias[i].contenido;
-
-        textDiv.appendChild(title);
-        textDiv.appendChild(content);
-
-        SecDiv.appendChild(BigImg);
-        SecDiv.appendChild(textDiv);
-
-        BigNotice.appendChild(SecDiv);
-
-        newbig.appendChild(BigNotice);
-        this.mainWrapper.appendChild(newbig);
-      }else if(this.isTwo(i) && i !== 0){
-        console.log("here2");
-        this.createSmall(newDiv, true, i);
+      if(i == 0){
+        this.makeBigNews(this.noticias[i]);
       }else{
-        console.log("here3");
-        this.createSmall(newDiv, true, i);
+        this.makeSmallNews(this.noticias[i]);
       }
-      
     }
+
   }
 
-  createSmall(newDiv, first, i){
-    if(first){
-      newDiv = document.createElement('div');
-      newDiv.className = "row";
-    }
-    let SmallNotice = document.createElement('div');
-    SmallNotice.className = "col-md-6 noticia";
-    let image = document.createElement('img');
-    image.src = this.noticias[i].imagen;
-    let textDiv = document.createElement('div');
-    textDiv.className="col-md-6 noticia-text";
-    let title = document.createElement('p');
-    title.innerHTML=this.noticias[i].titulo;
-    let content = document.createElement('p');
-    content.innerHTML=this.noticias[i].contenido;
-    textDiv.appendChild(title);
-    textDiv.appendChild(content);
-    SmallNotice.appendChild(image);
-    SmallNotice.appendChild(textDiv);
+  makeBigNews(noticia){
+    let bigrow = this.makeElement("div", "row2", "");
+    //let bitimg = this.makeElement("img", "big-img", "");
+    let bitimg = document.createElement('img');
+    bitimg.className="big-img";
+    bitimg.src = noticia.imagen;
+    bigrow.appendChild(bitimg);
 
-    newDiv.appendChild(SmallNotice);
-    this.mainWrapper.appendChild(newDiv);
+    let bigrow2 = this.makeElement("div", "row2", "");
+    let bigtext1 = this.makeElement("p", "big-text", "");
+    let bigtext2 = this.makeElement("p", "big-text", "");
+    let bigtext3 = this.makeElement("p", "big-text", "");
+    bigtext1.innerHTML = noticia.titulo;
+    bigtext2.innerHTML = noticia.resumen;
+    bigtext3.innerHTML = "por "+noticia.autor;
+    bigrow2.appendChild(bigtext1);
+    bigrow2.appendChild(bigtext2);
+    bigrow2.appendChild(bigtext3);
+
+
+    this.BigDiv.appendChild(bigrow);
+    this.BigDiv.appendChild(bigrow2);
   }
 
-  isTwo(n){
-    console.log(n % 2);
-    if((n % 2) === 0){
-      return true;
-    }
-    return false;
+  makeSmallNews(noticia){
+    let smallNoticia = this.makeElement("div", "smallNoticia", "");
+    let smallImg = this.makeElement("div", "small-img", "");
+    let Img = document.createElement('img');
+    Img.src = noticia.imgmini;
+    smallImg.appendChild(Img);
+    smallNoticia.appendChild(smallImg);
+
+    let smallText = this.makeElement("div", "small-text", "");
+    let sText1 = this.makeElement("p", "s-text", "");
+    let sText2 = this.makeElement("p", "s-text", "");
+    let sText3 = this.makeElement("p", "s-text", "");
+    sText1.innerHTML = noticia.titulo;
+    sText2.innerHTML = noticia.resumen;
+    sText3.innerHTML = "por "+noticia.autor;
+    smallText.appendChild(sText1);
+    smallText.appendChild(sText2);
+    smallText.appendChild(sText3);
+    smallNoticia.appendChild(smallText);
+
+    this.smallContainer.appendChild(smallNoticia);
   }
 
-  isFive(n){
-    n = n / 5;
-    return Number(n) === n && n % 1 === 0;
+  makeElement(tipo, clases, ids){
+    let element = document.createElement(tipo);
+    if(clases != ""){
+      element.className=clases;
+    }
+    if(ids != ""){
+      element.id=ids;
+    }
+    return element;
   }
 
 
