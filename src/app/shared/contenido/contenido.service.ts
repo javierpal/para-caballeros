@@ -30,7 +30,6 @@ export class ContenidoService {
   loadTendencias(){
     let noticiasLink = "http://192.168.1.10/getTendencia";
     let headers = new Headers();
-    //headers.append("Access-Control-Allow-Headers", "X-CSRF-Token");
 
     return this.http.get( noticiasLink, {
       headers: headers
@@ -41,6 +40,22 @@ export class ContenidoService {
           tendencias.push(new Noticias(noticia.id, noticia.titulo, noticia.hora, noticia.autor, noticia.resumen, noticia.contenido, noticia.imagen, noticia.imgmini, noticia.visitas));
         });
         return tendencias;
+      });
+  }
+
+  loadLeftNews(){
+    let noticiasLink = "http://192.168.1.10/getLeftNews";
+    let headers = new Headers();
+
+    return this.http.get( noticiasLink, {
+      headers: headers
+    }).map( res => res.json())
+      .map(data =>{
+        let leftnews = [];
+        data.forEach((noticia) =>{
+          leftnews.push(new Noticias(noticia.id, noticia.titulo, noticia.hora, noticia.autor, noticia.resumen, noticia.contenido, noticia.imagen, noticia.imgmini, noticia.visitas));
+        });
+        return leftnews;
       });
   }
 

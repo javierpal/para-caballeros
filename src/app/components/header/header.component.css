@@ -4,7 +4,32 @@
 
 #slider-text{
     position: absolute;
-    top: 50%;
-    left: 10%;
-    font-size: 30px;
+    top: 33%;
+    left: 22%;
+    max-width: 800px;
+}
+
+.header-text{
+    color: white;
+    font-size: 17px;
+    font-family: Source Sans Pro Regular;
+}
+
+.header-text:first-child{
+    font-size: 70px;
+    letter-spacing: -1px;
+    font-family: Source Sans Pro Bold;
+}
+
+.header-text:not(:first-child):not(:last-child){
+    max-width: 500px;
+    margin-bottom: 0px;
+}
+
+.header-text:last-child{
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
 }

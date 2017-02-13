@@ -16,19 +16,23 @@ export class MainComponent implements OnInit {
   BigDiv: any;
   smallContainer: any;
   tendenciaContainer: any;
+  leftNewsContainer: any;
 
   noticias: Array<Noticias> = [];
   tendencias: Array<Noticias> = [];
+  leftNews: Array<Noticias> = [];
 
   @ViewChild('bigDiv') mW: ElementRef;
   @ViewChild('smallContainer') sC: ElementRef;
   @ViewChild('tendenciaContainer') tC: ElementRef;
+  @ViewChild('leftNews') lN: ElementRef;
 
 
   ngOnInit() {
     this.BigDiv = this.mW.nativeElement;
     this.smallContainer = this.sC.nativeElement;
     this.tendenciaContainer = this.tC.nativeElement;
+    this.leftNewsContainer = this.lN.nativeElement;
 
     this.subscribe();
 
@@ -49,17 +53,31 @@ export class MainComponent implements OnInit {
           this.tendencias.push(detalleTendencia);
         });
         this.showTendencias();
-      });
+    });
+
+    this.contenidoService.loadLeftNews()
+      .subscribe(loadedLeftNews => {
+        loadedLeftNews.forEach((detalleLeftNews)=>{
+          this.leftNews.push(detalleLeftNews);
+        });
+        this.showLeftNews();
+    });
+  }
+
+  showLeftNews(){
+    for(let i = 0; i < this.leftNews.length; i++){
+      this.makeTendencias(this.leftNews[i], false);
+    }
   }
 
 
   showTendencias(){
     for(let i = 0; i < this.tendencias.length; i++){
-      this.makeTendencias(this.tendencias[i]);
+      this.makeTendencias(this.tendencias[i], true);
     }
   }
 
-  makeTendencias(tendencia){
+  makeTendencias(tendencia, tendencias){
     let tinyNoticia = this.makeElement("div", "tinyNoticia", "");
     let tinyImg = this.makeElement("div", "tiny-img", "");
     let Img = document.createElement('img');
@@ -79,7 +97,11 @@ export class MainComponent implements OnInit {
     tinyText.appendChild(tText3);
 
     tinyNoticia.appendChild(tinyText);
-    this.tendenciaContainer.appendChild(tinyNoticia);
+    if(tendencias){
+      this.tendenciaContainer.appendChild(tinyNoticia);
+    }else{
+      this.leftNewsContainer.appendChild(tinyNoticia);
+    }
   }
 
   showNoticias(){
@@ -96,7 +118,6 @@ export class MainComponent implements OnInit {
 
   makeBigNews(noticia){
     let bigrow = this.makeElement("div", "row2", "");
-    //let bitimg = this.makeElement("img", "big-img", "");
     let bitimg = document.createElement('img');
     bitimg.className="big-img";
     bitimg.src = noticia.imagen;
