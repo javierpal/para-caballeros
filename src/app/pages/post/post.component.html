@@ -1,0 +1,24 @@
+<div class="post-wrapper">
+
+<!-- Left Div-->
+  <div *ngIf="Noticia" class="col-md-8 pdm pcmd">
+    <p class="post-title"> {{ Noticia.titulo }}</p>
+
+    <div class="post-autor">
+      <img class="p-div-autor img-autor" src="./assets/juan.jpg">
+      <div class="p-div-autor">
+        <p> {{ Noticia.autor }} </p>
+        <p> {{ Noticia.hora }} </p>
+      </div>
+    </div>
+
+    <div class="post-contenido"> {{ Noticia.contenido }} </div>
+  </div>
+  <!-- Right Div -->
+
+  <div class="col-md-3 cdm">
+    <p class="t-tendencias">#TENDENCIAS</p>
+    <div #tendenciaContainer class="tendencias"></div>
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, Renderer } from '@angular/core';
 import { ContenidoService } from "../../shared/contenido/contenido.service";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Noticias } from '../../shared/contenido/contenido';
 
 @Component({
@@ -11,7 +12,7 @@ import { Noticias } from '../../shared/contenido/contenido';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private contenidoService: ContenidoService) { }
+  constructor(private contenidoService: ContenidoService, private route: ActivatedRoute, private router: Router, private renderer: Renderer) { }
 
   BigDiv: any;
   smallContainer: any;
@@ -87,7 +88,7 @@ export class MainComponent implements OnInit {
 
     let tinyText = this.makeElement("div", "tiny-text", "");
     let tText1 = this.makeElement("p", "t-text", "");
-    let tText2 = this.makeElement("p", "t-text", "");
+    let tText2 = this.makeElement("p", "t-text t-middle", "");
     let tText3 = this.makeElement("p", "t-text", "");
     tText1.innerHTML = tendencia.titulo;
     tText2.innerHTML = tendencia.resumen;
@@ -144,6 +145,9 @@ export class MainComponent implements OnInit {
     let smallImg = this.makeElement("div", "small-img", "");
     let Img = document.createElement('img');
     Img.src = noticia.imgmini;
+    this.renderer.listen(Img, 'click', (event =>{
+      this.goPost(noticia);
+    }));
     smallImg.appendChild(Img);
     smallNoticia.appendChild(smallImg);
 
@@ -174,5 +178,8 @@ export class MainComponent implements OnInit {
   }
 
 
+  goPost(noticia: Noticias){
+    this.router.navigate(['/post', {'id': noticia.id, 'titulo':noticia.titulo}]);
+  }
 
 }

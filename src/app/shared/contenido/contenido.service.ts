@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from "@angular/http";
+import { Http, Headers, URLSearchParams } from "@angular/http";
 import { Noticias } from "./contenido";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
@@ -57,6 +57,22 @@ export class ContenidoService {
         });
         return leftnews;
       });
+  }
+
+  loadNoticia(id){
+    let noticiasLink = "http://192.168.1.10/getNoticia";
+    /*let headers = new Headers();*/
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("id", id);
+
+    return this.http.get( noticiasLink, {
+      search: params
+    }).map( res => res.json())
+      .map(data =>{
+        let noticia = new Noticias(data[0].id, data[0].titulo, data[0].hora, data[0].autor, data[0].resumen, data[0].contenido, data[0].imagen, data[0].imgmini, data[0].visitas);
+        return noticia;
+    });
   }
 
 }

@@ -8,8 +8,11 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 
 import { MainComponent } from "./pages/main/main.component";
 
+import { PostComponent } from "./pages/post/post.component";
+
 export const routes = [
     { path: "", component: MainComponent },
+    { path: "post", component: PostComponent },
 ];
 
 export const navigatableComponents = [
@@ -18,4 +21,5 @@ export const navigatableComponents = [
     FooterComponent,
     HeaderComponent,
     NavbarComponent,
+    PostComponent,
 ];

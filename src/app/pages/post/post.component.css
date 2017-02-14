@@ -1,0 +1,44 @@
+
+.post-wrapper{
+    margin: 0 auto;
+    float: none;
+    text-align: center;
+    padding-top: 20px;
+    max-width: 1300px;
+}
+.post-title{
+    text-align: left;
+    font-size: 40px;
+    font-family: Source Sans Pro Bold;
+}
+.post-contenido{
+    text-align: justify;
+    font-family: Source Sans Pro Regular;
+    font-size: 25px;
+}
+.pcmd{
+    margin-right: 50px;
+    text-align: left;
+}
+
+.p-div-autor{
+    display: inline-block;
+}
+
+.img-autor{
+    width: 50px;
+    height: 50px;
+}
+
+.p-div-autor p{
+    margin: 0px;
+    font-family: Source Sans Pro Regular;
+}
+
+.p-div-autor p:first-child{
+    font-family: Source Sans Pro Bold;
+}
+
+.post-autor{
+    margin-bottom: 20px;
+}
