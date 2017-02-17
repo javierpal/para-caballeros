@@ -4,6 +4,8 @@ import { Noticias } from "./contenido";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
+import { direccion } from "../config";
+
 @Injectable()
 export class ContenidoService {
 
@@ -11,7 +13,7 @@ export class ContenidoService {
 
   loadNoticias(){
 
-    let noticiasLink = "http://192.168.1.10/getNews";
+    let noticiasLink = direccion+"/getNews";
     let headers = new Headers();
     //headers.append("Access-Control-Allow-Headers", "X-CSRF-Token");
 
@@ -28,7 +30,7 @@ export class ContenidoService {
   }
 
   loadTendencias(){
-    let noticiasLink = "http://192.168.1.10/getTendencia";
+    let noticiasLink = direccion +"/getTendencia";
     let headers = new Headers();
 
     return this.http.get( noticiasLink, {
@@ -44,7 +46,7 @@ export class ContenidoService {
   }
 
   loadLeftNews(){
-    let noticiasLink = "http://192.168.1.10/getLeftNews";
+    let noticiasLink = direccion+"/getLeftNews";
     let headers = new Headers();
 
     return this.http.get( noticiasLink, {
@@ -60,7 +62,7 @@ export class ContenidoService {
   }
 
   loadNoticia(id){
-    let noticiasLink = "http://192.168.1.10/getNoticia";
+    let noticiasLink = direccion+"/getNoticia";
     /*let headers = new Headers();*/
 
     let params: URLSearchParams = new URLSearchParams();
@@ -72,6 +74,34 @@ export class ContenidoService {
       .map(data =>{
         let noticia = new Noticias(data[0].id, data[0].titulo, data[0].hora, data[0].autor, data[0].resumen, data[0].contenido, data[0].imagen, data[0].imgmini, data[0].visitas);
         return noticia;
+    });
+  }
+
+  sendAuth(email, password){
+    let noticiasLink = direccion+"/Autenticate";
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.append("email", email);
+    params.append("password", password);
+
+    return this.http.get( noticiasLink, {
+      search: params
+    }).map( res => res.json())
+      .map(data =>{
+        return data;
+    });
+  }
+
+  sendUserType(){
+    let noticiasLink = direccion+"/findAdmin";
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer "+localStorage.getItem("token"));
+
+    return this.http.get( noticiasLink, {
+      headers: headers
+    }).map( res => res.json())
+      .map(data =>{
+        return data;
     });
   }
 

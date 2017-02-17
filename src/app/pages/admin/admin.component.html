@@ -1,0 +1,18 @@
+
+<div class="adminWrapper">
+  <div class="lginMainDiv">
+    <div class="lgnlogo">
+      <img src="./assets/logo-blanco.png">
+    </div>
+    <p class="lgnTitle">Para Caballeros Login</p>
+    <p class="errors" #errores></p>
+    <div class="lgnInputDiv">
+      <p class="lgnText">Email:</p>
+      <input #email class="lgnInput">
+      <p class="lgnText">Contraseña:</p>
+      <input #password type="password" class="lgnInput">
+      <button (click)="sendCredentials()" class="lgnBtn">Iniciar Secion</button>
+    </div>
+    <a routerLink="/" routerLinkActive="active" class="backlink"><span class="glyphicon glyphicon-arrow-left"></span> Volver a Para Caballeros</a>
+  </div>
+</div>

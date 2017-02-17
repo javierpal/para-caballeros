@@ -98,6 +98,12 @@ export class MainComponent implements OnInit {
     tinyText.appendChild(tText3);
 
     tinyNoticia.appendChild(tinyText);
+
+    let clickDiv = this.makeElement("div", "click", "");
+    this.renderer.listen(clickDiv, 'click', (event =>{
+      this.goPost(tendencia);
+    }));
+    tinyNoticia.appendChild(clickDiv);
     if(tendencias){
       this.tendenciaContainer.appendChild(tinyNoticia);
     }else{
@@ -135,9 +141,14 @@ export class MainComponent implements OnInit {
     bigrow2.appendChild(bigtext2);
     bigrow2.appendChild(bigtext3);
 
-
     this.BigDiv.appendChild(bigrow);
     this.BigDiv.appendChild(bigrow2);
+
+    let clickDiv = this.makeElement("div", "click", "");
+    this.renderer.listen(clickDiv, 'click', (event =>{
+      this.goPost(noticia);
+    }));
+    this.BigDiv.appendChild(clickDiv);
   }
 
   makeSmallNews(noticia){
@@ -145,9 +156,6 @@ export class MainComponent implements OnInit {
     let smallImg = this.makeElement("div", "small-img", "");
     let Img = document.createElement('img');
     Img.src = noticia.imgmini;
-    this.renderer.listen(Img, 'click', (event =>{
-      this.goPost(noticia);
-    }));
     smallImg.appendChild(Img);
     smallNoticia.appendChild(smallImg);
 
@@ -162,6 +170,12 @@ export class MainComponent implements OnInit {
     smallText.appendChild(sText2);
     smallText.appendChild(sText3);
     smallNoticia.appendChild(smallText);
+
+    let clickDiv = this.makeElement("div", "click", "");
+    this.renderer.listen(clickDiv, 'click', (event =>{
+      this.goPost(noticia);
+    }));
+    smallNoticia.appendChild(clickDiv);
 
     this.smallContainer.appendChild(smallNoticia);
   }

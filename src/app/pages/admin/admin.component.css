@@ -1,0 +1,117 @@
+
+@font-face { font-family: Myriad Set Pro Bold; src: url('../assets/fonts/myriad-set-pro_bold.ttf'); }
+@font-face { font-family: Myriad Set Pro Thin; src: url('../assets/fonts/myriad-set-pro_thin.ttf'); } 
+@font-face { font-family: Source Sans Pro Bold; src: url('../assets/fonts/SourceSansPro-Bold.otf'); }
+@font-face { font-family: Source Sans Pro Regular; src: url('../assets/fonts/SourceSansPro-Regular.otf'); }
+
+.adminWrapper{
+    background-color: rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.lginMainDiv{
+    width: 450px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.lgnInputDiv{
+    width: 85%;
+    margin:0 auto;
+    background-color: rgba(255,255,255,1);
+    -webkit-border-radius: 3px 3px 2px 2px;
+    -moz-border-radius: 3px 3px 2px 2px;
+    border-radius: 3px 3px 2px 2px;
+    padding: 15px 15px 40px 15px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.lgnlogo{
+    width: 120px;
+    height: 170px;
+    position: relative;
+    background-color: black;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.lgnlogo img{
+    width: 55%;
+    height: 98%;
+    margin: 0 auto;
+}
+
+.lgnText{
+    font-family: Myriad Set Pro Bold;
+    font-size: 20px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.lgnInput{
+    border: none;
+    background: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    width: 100%;
+    margin: 0 auto 15px auto;
+}
+
+.lgnInput:focus{
+    outline: none;
+}
+
+.lgnTitle{
+    font-family: Myriad Set Pro Bold;
+    font-size: 30px;
+    text-align: center;
+}
+
+.lgnBtn{
+    float: right;
+    background: none;
+    border: none;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
+	background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
+	background-color:#63b8ee;
+    -moz-box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+    padding: 5px 5px 5px 5px;
+    font-family: Myriad Set Pro Thin;
+    margin: 0px 10px 15px 0px;
+}
+
+.lgnBtn:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #468ccf), color-stop(1, #63b8ee) );
+	background:-moz-linear-gradient( center top, #468ccf 5%, #63b8ee 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468ccf', endColorstr='#63b8ee');
+	background-color:#468ccf;
+}
+
+.backlink{
+    padding-top: 25px;
+}
+
+.errors{
+    background-color: red;
+    padding: 10px 10px 10px 10px;
+    width: 90%;
+    margin: 0px auto 15px auto;
+    display: none;
+    color: black;
+    font-family: Myriad Set Pro Bold;
+    font-size: 17px;
+    text-align: center;
+}
+
+.errors p{
+    margin: 5px 0px 5px 0px;
+}

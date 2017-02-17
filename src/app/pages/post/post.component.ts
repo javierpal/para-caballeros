@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, Renderer } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ContenidoService } from "../../shared/contenido/contenido.service";
 import { Noticias } from '../../shared/contenido/contenido';
@@ -12,7 +12,7 @@ import { Noticias } from '../../shared/contenido/contenido';
 })
 export class PostComponent implements OnInit {
 
-  constructor(private contenidoService: ContenidoService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private contenidoService: ContenidoService, private route: ActivatedRoute, private router: Router, private renderer: Renderer) { }
 
   private _sub: any;
   contenido: any;
@@ -26,12 +26,6 @@ export class PostComponent implements OnInit {
   @ViewChild('tendenciaContainer') tC: ElementRef;
 
   ngOnInit() {
-    this._sub = this.route.params.subscribe(params => {
-			this.contenido = params;
-		});
-
-    this.noticia_id = this.contenido.id;
-
     this.tendenciaContainer = this.tC.nativeElement;
     
     this.loadNoticia();
@@ -39,12 +33,22 @@ export class PostComponent implements OnInit {
   }
 
   loadNoticia(){
-    this.contenidoService.loadNoticia(this.noticia_id)
+    let first = false;
+    this._sub = this.route.params.subscribe(params => {
+			this.contenido = params;
+      this.noticia_id = this.contenido.id;
+      this.showNoticia(first);
+		});
+  }
+
+  showNoticia(first){
+    if(!first){
+      first = true;
+      this.contenidoService.loadNoticia(this.noticia_id)
       .subscribe(loadedNoticia => {
         this.Noticia = loadedNoticia;
-        console.log(this.Noticia);
-    });
-    
+      });
+    }
   }
 
   subscribe(){
@@ -83,6 +87,12 @@ export class PostComponent implements OnInit {
     tinyText.appendChild(tText3);
 
     tinyNoticia.appendChild(tinyText);
+
+    let clickDiv = this.makeElement("div", "click", "");
+    this.renderer.listen(clickDiv, 'click', (event =>{
+      this.goPost(tendencia);
+    }));
+    tinyNoticia.appendChild(clickDiv);
     this.tendenciaContainer.appendChild(tinyNoticia);
   }
 
@@ -95,6 +105,10 @@ export class PostComponent implements OnInit {
       element.id=ids;
     }
     return element;
+  }
+
+  goPost(noticia: Noticias){
+    this.router.navigate(['/post', {'id': noticia.id, 'titulo':noticia.titulo}]);
   }
 
 }

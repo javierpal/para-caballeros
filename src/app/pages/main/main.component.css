@@ -62,6 +62,7 @@
 }
 
 .bigDiv{
+    position: relative;
     background-color: white;
     -webkit-border-radius: 0px 0px 2px 2px;
     -moz-border-radius: 0px 0px 2px 2px;
@@ -324,4 +325,21 @@
 
 .adj-foto{
     color: rgba(0,0,0,0.3);
+}
+
+.click{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10;
+    cursor: pointer;
+    -webkit-border-radius: 3px 3px 2px 2px;
+    -moz-border-radius: 3px 3px 2px 2px;
+    border-radius: 3px 3px 2px 2px;
+}
+
+.click:hover{
+    background-color: rgba(0,0,0,0.6);
 }
