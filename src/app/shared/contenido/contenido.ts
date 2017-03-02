@@ -10,3 +10,7 @@ export class Noticias {
     public imgmini: string,
     public visitas: any){ }
 }
+
+export class Imagen{
+    constructor(public id: any, public post_id: any, public ruta: string, public nombre: string){}
+}

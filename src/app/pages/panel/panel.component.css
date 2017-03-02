@@ -105,6 +105,16 @@
     background: none;
 }
 
+.p-Breview{
+    display: inline-block;
+    float: left;
+}
+
+.p-Bsubir{
+    display: inline-block;
+    float: right;
+}
+
 @media(min-width:768px) {
     #Panelwrapper {
         padding-left: 250px;

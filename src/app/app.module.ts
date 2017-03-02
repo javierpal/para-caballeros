@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { routes, navigatableComponents } from "./app.routes";
 
 @NgModule({
-  declarations: navigatableComponents,
+  declarations: navigatableComponents, 
   imports: [
     BrowserModule,
     FormsModule,
